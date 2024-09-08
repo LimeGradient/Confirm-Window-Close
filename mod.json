@@ -1,0 +1,25 @@
+{
+	"geode": "3.4.0",
+	"gd": {
+		"win": "*"
+	},
+	"id": "thesillydoggo.confirm_window_close",
+	"name": "Confirm Window Close",
+	"version": "v1.0.0",
+	"developer": "TheSillyDoggo",
+	"description": "nyaa",
+	"settings": {
+		"no-popup": {
+			"name": "No Popup",
+			"type": "bool",
+			"default": false,
+			"description": "Doesn't show a popup when pressing the <cr>x</c> button.\nThis completely disables pressing the <cr>x</c> button."
+		},
+		"os-popup": {
+			"name": "OS Popup",
+			"type": "bool",
+			"default": false,
+			"description": "Shows a native windows popup instead of a gd alert."
+		}
+	}
+}
