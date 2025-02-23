@@ -43,18 +43,15 @@ LRESULT CALLBACK CustomWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
 			return 0;
 		}
 
-		if (Loader::get()->getGameVersion() == "2.206")
+		alertPopup = createQuickPopup("Quit Game", "Are you sure you want to <cr>quit</c>?", "Cancel", "Yes", [](FLAlertLayer* alert, bool right)
 		{
-			alertPopup = createQuickPopup("Quit Game", "Are you sure you want to <cr>quit</c>?", "Cancel", "Yes", [](FLAlertLayer* alert, bool right)
-			{
-				alertPopup = nullptr;
+			alertPopup = nullptr;
 
-				if (right)
-				{
-					utils::game::exit();
-				}
-			});
-		}
+			if (right)
+			{
+				utils::game::exit();
+			}
+		});
 
 		return 0;
 	}
@@ -65,8 +62,6 @@ LRESULT CALLBACK CustomWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
 void refreshHWNDhook()
 {
 	auto hwnd = getWindowHandle();
-
-	log::info("Current window HWND: {}", reinterpret_cast<void*>(hwnd));
 
 	oldProc = reinterpret_cast<WNDPROC>(GetWindowLongPtr(hwnd, GWLP_WNDPROC));
 	SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(CustomWndProc));
@@ -79,9 +74,9 @@ $on_mod(Loaded)
 
 class $modify (CCEGLView)
 {
-	void toggleFullScreen(bool fullscreen, bool borderless)
+	void toggleFullScreen(bool fullscreen, bool borderless, bool fix)
 	{
-		CCEGLView::toggleFullScreen(fullscreen, borderless);
+		CCEGLView::toggleFullScreen(fullscreen, borderless, fix);
 
 		Loader::get()->queueInMainThread([]{
 			refreshHWNDhook();
